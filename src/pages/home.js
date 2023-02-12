@@ -8,13 +8,40 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
+import {Card} from '../components/card'
+
+
 
 export default function Home() {
+  const img = {
+  car: require('../../assets/testando.jpg')
+}
   const navigation = useNavigation();
   const width = Dimensions.get('window').width;
   return (
-      <View style={{ flex: 1 }}>
-          
+      <View style={styles.container}>
+        <View style={styles.carousel}>
+          <Card
+          img={img.car}
+          name={"Jabuti"}
+          price={"12.2"}
+          ></Card>
+          <Card
+          img={img.car}
+          name={"Jabuti"}
+          price={"12.2"}
+          ></Card>
+          <Card
+          img={img.car}
+          name={"Jabuti"}
+          price={"12.2"}
+          ></Card>
+          <Card
+          img={img.car}
+          name={"Jabuti"}
+          price={"12.2"}
+          ></Card>
+        </View>
       </View>
   );
 }
@@ -63,5 +90,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#FFF',
     fontWeight:'bold'
+  },
+  carousel:{
+    flexDirection:'row'
   }
 })

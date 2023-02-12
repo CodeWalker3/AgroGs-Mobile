@@ -1,26 +1,30 @@
-import { ImageBackground, TouchableOpacity } from "react-native";
+import { ImageBackground, TouchableOpacity, Text, View } from "react-native";
+import { LinearGradient } from 'expo-linear-gradient'
 import { styles } from '../styles/styles'
 
 
-export default function Card({dataProps}){
+export const Card = (props) =>{
 
     return(
+      <View>
        <TouchableOpacity style={styles.container}>
         <ImageBackground
         style={styles.cover}
-        source={dataProps.image_url}
+        source={props.img}
         >
-        <linearGradient
+        <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}
         style={styles.footer}>
          <Text style={styles.name}>
-            {dataProps.name}
+            {props.name}
          </Text>
          <Text style={styles.price}>
-            {dataProps.price}
+            {props.price}
          </Text>   
-        </linearGradient>
+        </LinearGradient>
         </ImageBackground>
         
        </TouchableOpacity>
+       </View>
     )
 }

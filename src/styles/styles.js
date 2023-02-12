@@ -19,12 +19,10 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    fontFamily: 'Inter',
     fontWeight: 'bold'
   },
   price: {
     fontSize: 14,
-    fontFamily: 'Inter',
     color:'#1C9059',
   }
 })
