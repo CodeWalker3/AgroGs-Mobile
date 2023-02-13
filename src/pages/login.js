@@ -1,20 +1,29 @@
 import React, { useContext, useState } from 'react';
-import { View, Image,Text, TextInput, StyleSheet, Alert, ImageBackground } from 'react-native';
+import { View, Image,Text, TextInput, StyleSheet, Alert,ImageBackground } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Button from '../components/button'
 import { UserContext } from '../context/UserContext';
 import Input from '../components/Input'
 import { LinearGradient } from 'expo-linear-gradient';
 const Login = ({ navigation }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const { setUser } = useContext(UserContext);
-  
-    const handleLogin = () => {
-      const data = {
-        username,
-        password
-      };
-    };
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(null);
+
+  const handleLogin = async () => {
+    try {
+      const storedUsername = await AsyncStorage.getItem('username');
+      const storedPassword = await AsyncStorage.getItem('password');
+
+      if (username === storedUsername && password === storedPassword) {
+        navigation.navigate('Rotas');
+      } else {
+        setError('Incorrect username or password. Please try again.');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     
@@ -69,7 +78,7 @@ const Login = ({ navigation }) => {
         />
       </View>
       <View style={styles.button_separator}>
-      <Button title="Login" onPress={()=>navigation.navigate('Rotas')} />
+      <Button title="Login" onPress={handleLogin} />
       </View>
       <Button
         title="Register"

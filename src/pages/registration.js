@@ -1,19 +1,29 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, StyleSheet, Image,ImageBackground } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Image ,ImageBackground } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import Button from '../components/button'
 import Input from '../components/Input'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function Register({navigation}){
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const handleLogin = () => {
+    const handleSignup = async () => {
       const data = {
         username,
-        password
+        password,
+        email
       };
+
+      try {
+        await AsyncStorage.setItem('userData', JSON.stringify(data));
+        navigation.navigate('Login');
+      } catch (error) {
+        console.error(error);
+      }
     };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -74,7 +84,7 @@ export default function Register({navigation}){
       </View>
       <Button
         title="Register"
-        onPress={() => navigation.navigate('Login')}
+        onPress={handleSignup}
       />
     </LinearGradient>
    </ImageBackground> 
