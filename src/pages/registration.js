@@ -1,79 +1,117 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
-import { UserContext } from '../context/UserContext';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, TextInput, StyleSheet, Image,ImageBackground } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import Button from '../components/button'
+import Input from '../components/Input'
 
-export default function Register(){
+export default function Register({navigation}){
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation();
-    const handleRegistration = () => {
+    const handleLogin = () => {
       const data = {
         username,
-        email,
         password
       };
-  
-      fetch('http://localhost:8000/dj-rest-auth/registration/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-        navigation.navigate('Login')
     };
-
   return (
     <View style={styles.container}>
-    <Text>
-        Register
-    </Text>
-      <TextInput
-        style={styles.input}
-        value={username}
-        onChangeText={setUsername}
-        placeholder="Username"
+      <ImageBackground
+    resizeMode='cover'
+    source={require("../../assets/background_login.png")}
+    style={styles.image}
+    imageStyle={{backgroundColor: 'rgba(0,0,0,0.5)'}}
+    >
+    <LinearGradient
+    style={styles.color}
+    colors={['rgba(28, 144, 89, 0.8)','rgba(28, 144, 89, 0.8)']}
+    resizeMode='cover'
+    >
+      <View style={styles.title_container}>
+      <Text style={styles.title}>
+      Please Register in the app!
+      </Text>
+      </View>
+      <View style={styles.input_separator}>
+      <Input
+         iconName={'account'}
+         placeholder='Username'
+         value={username}
+         onChangeText={setUsername}
+         autoCapitalize='none'
+         keyboardType='email-address'
+        />
+      </View>
+      <View style={styles.input_separator}>
+      <Input
+         iconName={'account'}
+         placeholder='Email'
+         value={email}
+         onChangeText={setEmail}
+         autoCapitalize='none'
+         keyboardType='email-address'
+        />
+      </View>
+      <View style={styles.input_separator}>
+        <Input
+         iconName={'lock-outline'} 
+         placeholder='Password' 
+         secureTextEntry
+         value={password}
+         onChangeText={setPassword}
+         autoCapitalize='none'
+        />
+      </View>
+      <View style={styles.input_separator}>
+        <Input
+         iconName={'lock-outline'} 
+         placeholder='Password2' 
+         secureTextEntry
+         value={password}
+         onChangeText={setPassword}
+         autoCapitalize='none'
+        />
+      </View>
+      <Button
+        title="Register"
+        onPress={() => navigation.navigate('Login')}
       />
-      <TextInput
-        style={styles.input}
-        value={email}
-        onChangeText={setEmail}
-        placeholder="Email"
-      />
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        secureTextEntry
-      />
-      <Button title="Register" onPress={handleRegistration} />
-    </View>
+    </LinearGradient>
+   </ImageBackground> 
+   </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  input: {
-    width: 200,
-    height: 44,
-    padding: 10,
-    borderWidth: 1,
-    borderColor: 'black',
-    marginBottom: 10,
+  image:{
+    justifyContent:'center',
+    flex:1,
+  },
+  title:{
+    color:'#FFFFFF',
+    textAlign:'center',
+    fontWeight:'600',
+    fontSize:32,
+  },
+  title_container:{
+    marginTop:'15%',
+    marginBottom:41
+  },
+  input_separator:{
+    marginBottom:19,
+    alignContent:'center'
+  },
+  button_separator:{
+    marginTop:10,
+    marginBottom:10
+  },
+  color:{
+    width:'100%',
+    height:'100%',
+    justifyContent:'center'
   },
 });
 

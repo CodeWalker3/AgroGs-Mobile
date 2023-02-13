@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import Routes from './src/routes/routes';
 export default function App() {
   return (
+  
     <NavigationContainer>
       <StatusBar 
       barStyle="light-content"

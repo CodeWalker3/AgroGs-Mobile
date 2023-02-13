@@ -5,8 +5,8 @@ export const styles = StyleSheet.create({
     marginRight:24,
   },
   cover: {
-    width:240,
-    height:320,
+    width:340,
+    height:350,
     justifyContent:'flex-end',
     borderRadius: 8,
     overflow: 'hidden'
@@ -19,7 +19,8 @@ export const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color:"#ffffff"
   },
   price: {
     fontSize: 14,

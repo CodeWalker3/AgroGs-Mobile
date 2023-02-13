@@ -13,7 +13,7 @@ export const Card = (props) =>{
         source={props.img}
         >
         <LinearGradient
-        colors={['#4c669f', '#3b5998', '#192f6a']}
+        colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.9)']}
         style={styles.footer}>
          <Text style={styles.name}>
             {props.name}

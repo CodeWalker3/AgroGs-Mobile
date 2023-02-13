@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 export default function Input(props) {
   const [sec, setSec] = useState(props.secureTextEntry)
  return (
-  <View>
+  <View style={styles.container}>
     <TextInput 
       style={styles.input}
       underlineColorAndroid='transparent'
@@ -35,12 +35,14 @@ export default function Input(props) {
 }
 
 const styles = StyleSheet.create({
+  container:{
+    marginHorizontal: 20,
+  },
   input:{
     height: 50,
-    width: 350,
+    width: 370,
     backgroundColor: '#FFF',
     paddingLeft: 45,
-    marginHorizontal: 20,
     borderRadius: 8,
     fontSize: 16,
     borderColor: '#E4E7EB',
@@ -49,12 +51,12 @@ const styles = StyleSheet.create({
   },
   icon:{
     position:'absolute',
-    left: 32,
+    left: 20,
     top: 12,
   }, 
   iconEye:{
     position:'absolute',
-    right: 32,
+    right: 30,
     bottom: 11,
   },  
 })

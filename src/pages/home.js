@@ -1,97 +1,121 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { 
   View, 
   Text,
   StyleSheet,
   TouchableOpacity,
-  Dimensions
+  TextInput,
+  Dimensions,
+  FlatList
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
-import {Card} from '../components/card'
-
-
+import { Card } from '../components/card';
+import Input from '../components/Input'
 
 export default function Home() {
   const img = {
-  car: require('../../assets/testando.jpg')
+  car: require('../../assets/testando.jpg'),
+  test: require('../../assets/testando.jpg'),
+  ola: require('../../assets/testando.jpg')
 }
+
+  const PRODUCTS = [
+    {id:1,
+    name:"mano",
+    price:12,
+    image: img.car},
+    {id:2,
+      name:"teste",
+      price:12,
+      image: img.car},
+    {id:3,
+      name:"teste",
+      price:12,
+      image: img.car},
+    {id:4,
+      name:"teste",
+      price:12,
+      image: img.car},
+    {id:5,
+        name:"teste",
+        price:12,
+        image: img.car},
+  ]
+  const [searchText, setSearchText] = useState('');
+  const [filteredProducts, setFilteredProducts] = useState(PRODUCTS);
+  const handleSearch = (text) => {
+    setSearchText(text);
+    const filtered = PRODUCTS.filter(product => product.name.toLowerCase().includes(text.toLowerCase()));
+    setFilteredProducts(filtered);
+  }
+
   const navigation = useNavigation();
-  const width = Dimensions.get('window').width;
   return (
       <View style={styles.container}>
-        <View style={styles.carousel}>
-          <Card
-          img={img.car}
-          name={"Jabuti"}
-          price={"12.2"}
-          ></Card>
-          <Card
-          img={img.car}
-          name={"Jabuti"}
-          price={"12.2"}
-          ></Card>
-          <Card
-          img={img.car}
-          name={"Jabuti"}
-          price={"12.2"}
-          ></Card>
-          <Card
-          img={img.car}
-          name={"Jabuti"}
-          price={"12.2"}
-          ></Card>
+      <View>
+        <View style={styles.text_container}>
+          <Text style={styles.title1}>Products</Text>
+        </View>
+        <View style={styles.input_position}>
+          <Input 
+            placeholder="Search" 
+            onChangeText={handleSearch}
+            value={searchText}
+          />
+        </View>
+        <View style={styles.list_container}>
+          <FlatList 
+            data={filteredProducts}
+            renderItem={({item}) => 
+            <View style={styles.item_container}>
+            <Card name={item.name} price={item.price} img={item.image} />
+            
+            </View>}
+            showsVerticalScrollIndicator={false}
+          />
         </View>
       </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container:{
+    maxHeight:'100%',
     flex: 1,
-    backgroundColor: '#004AAD',
+    justifyContent: "space-between",
+    alignItems: "center",
+    rowGap:18
   },
-  logo:{
-    flex: 2,
-    justifyContent: 'center',
-    alignItems:'center',
-  }, 
-  content:{
-    flex: 1,
-    backgroundColor:'#FFF',
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
-    paddingStart: '5%',
-    paddingEnd:'5%'
+  title1:{
+    
+    fontWeight: '600',
+    fontSize: 30,
+    color: '#1C9059',
   },
-  title:{
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginTop: 28,
-    marginBottom: 12,
-    color: '#004AAD'
+  text_container:{
+    marginTop:'15%',
+    alignSelf:'center'
   },
-  text:{
-    color: '#A1A1A1',
-    fontSize: 15,
+  input_position:{
+    marginTop:16
   },
-  button:{
-    position: 'absolute',
-    backgroundColor:'#004AAD',
-    borderRadius: 50,
-    paddingVertical: 8,
-    width: '60%',
-    alignSelf:'center',
-    bottom:'15%', 
-    alignItems: 'center',
-    justifyContent: 'center'
+  deals_container:{
+    marginTop:32,
+    marginLeft:16
   },
-  btnText:{
-    fontSize: 18,
-    color: '#FFF',
-    fontWeight:'bold'
+  list_container:{
+    marginLeft:30,
+    marginTop:16
   },
-  carousel:{
-    flexDirection:'row'
+  item_container:{
+    marginTop:20
+  },
+  subtitle:{
+    fontSize:24,
+    color: '#1C9059',
+    textAlign:'center'
+
   }
+  
 })
